@@ -49,7 +49,7 @@ export default function DeskScene({ onOpenDashboard }: Props) {
             {/* Gerçek Arka Plan Görseli */}
             <div 
               className="absolute inset-0 bg-cover bg-center select-none pointer-events-none"
-              style={{ backgroundImage: 'url(/desk_scene_new.png)' }}
+              style={{ backgroundImage: 'url(./desk_scene_new.png)' }}
             />
 
             {/* ================= ALARM BUTONU PARLAMA EFEKTİ ================= */}

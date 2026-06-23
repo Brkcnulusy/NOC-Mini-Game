@@ -17,7 +17,7 @@ export default function NocSimulator() {
       <div 
         className="w-full max-w-5xl h-[550px] md:h-[600px] lg:h-[650px] max-h-[70vh] bg-gray-950 border border-gray-800 rounded-2xl shadow-2xl relative flex flex-col overflow-y-auto no-scrollbar"
         style={{
-          backgroundImage: 'url(/landing_bg.png)',
+          backgroundImage: 'url(./landing_bg.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
