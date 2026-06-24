@@ -265,7 +265,7 @@ export default function CMDModal({
       }`}
     >
       <div
-        className={`w-[620px] bg-black border border-white/20 shadow-2xl transition-all duration-300 ${
+        className={`w-full max-w-[620px] mx-4 bg-black border border-white/20 shadow-2xl transition-all duration-300 ${
           show ? 'scale-100' : 'scale-75'
         }`}
       >

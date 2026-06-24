@@ -45,12 +45,12 @@ export default function Dashboard({ onBack, engine }: Props) {
           className="flex items-center gap-2 font-mono text-[10px] font-bold text-gray-400 hover:text-[#14fac8] transition-colors group uppercase tracking-widest"
         >
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-          <span>{t('game.back')}</span>
+          <span className="hidden md:inline">{t('game.back')}</span>
         </button>
 
         {/* Right Side Stats & Actions */}
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-4 select-none">
+        <div className="flex items-center gap-3 md:gap-6">
+          <div className="flex items-center gap-2 md:gap-4 select-none">
             {/* Language Selection */}
             <button
               onClick={toggleLang}
@@ -93,17 +93,18 @@ export default function Dashboard({ onBack, engine }: Props) {
             </div>
           </div>
 
-          <div className="h-6 w-px bg-white/10" />
+          <div className="hidden md:block h-6 w-px bg-white/10" />
 
           {/* Score Counter */}
           <div className="font-mono text-[10px] text-gray-300 font-bold uppercase tracking-widest">
-            {t('game.score')}: <span className="text-[#14fac8]">{engine.score.toString().padStart(4, '0')}</span>
+            <span className="hidden sm:inline">{t('game.score')}: </span>
+            <span className="text-[#14fac8]">{engine.score.toString().padStart(4, '0')}</span>
           </div>
 
           {/* Reset Button */}
           <button
             onClick={engine.rebootSimulation}
-            className="bg-[#14fac8]/10 border border-[#14fac8]/40 text-[#14fac8] font-mono text-[10px] font-bold px-3 py-1.5 hover:bg-[#14fac8] hover:text-black transition-all active:scale-95 flex items-center gap-1.5 uppercase"
+            className="hidden md:flex bg-[#14fac8]/10 border border-[#14fac8]/40 text-[#14fac8] font-mono text-[10px] font-bold px-3 py-1.5 hover:bg-[#14fac8] hover:text-black transition-all active:scale-95 items-center gap-1.5 uppercase"
           >
             <RefreshCw className="w-3 h-3" />
             <span>{lang === 'tr' ? 'SIFIRLA' : 'RESET'}</span>
@@ -112,7 +113,7 @@ export default function Dashboard({ onBack, engine }: Props) {
           {/* Terminate Button */}
           <button
             onClick={() => engine.setShowExitConfirm(true)}
-            className="bg-red-950/20 border border-red-500 text-red-500 font-mono text-[10px] font-bold px-3 py-1.5 hover:bg-red-500 hover:text-white transition-all active:scale-95 flex items-center gap-1.5 uppercase"
+            className="hidden md:flex bg-red-950/20 border border-red-500 text-red-500 font-mono text-[10px] font-bold px-3 py-1.5 hover:bg-red-500 hover:text-white transition-all active:scale-95 items-center gap-1.5 uppercase"
           >
             <XCircle className="w-3 h-3" />
             <span>{lang === 'tr' ? 'OYUNU BİTİR' : 'END GAME'}</span>
@@ -131,7 +132,7 @@ export default function Dashboard({ onBack, engine }: Props) {
       {/* MAIN CONTAINER */}
       <main className="flex-1 flex overflow-hidden">
         {/* Left Column Alerts list sidebar */}
-        <section className="w-[35%] flex-shrink-0">
+        <section className={`w-full md:w-[35%] flex-shrink-0 ${engine.selectedAlarmId ? 'hidden md:block' : 'block'}`}>
           <ActiveAlertsList
             activeAlarms={engine.activeAlarms}
             selectedAlarmId={engine.selectedAlarmId}
@@ -140,13 +141,14 @@ export default function Dashboard({ onBack, engine }: Props) {
         </section>
 
         {/* Right Column details workspace */}
-        <section className="w-[65%] flex-1 relative">
+        <section className={`w-full md:w-[65%] flex-1 relative ${engine.selectedAlarmId ? 'block' : 'hidden md:block'}`}>
           <Workspace
             selectedAlarm={engine.selectedAlarm}
             addedSteps={engine.addedSteps}
             onAddStep={engine.addStep}
             onRemoveStep={engine.removeStep}
             onExecute={engine.executeProcedure}
+            onBackToList={() => engine.selectAlarm(null)}
           />
         </section>
       </main>
@@ -218,6 +220,8 @@ export default function Dashboard({ onBack, engine }: Props) {
         sfxEnabled={engine.sfxEnabled}
         onSfxToggle={() => engine.setSfxEnabled(!engine.sfxEnabled)}
         onClose={() => engine.setShowSettings(false)}
+        onReboot={engine.rebootSimulation}
+        onQuit={engine.quitToLanding}
       />
     </div>
   );

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Settings, RefreshCw, LogOut } from 'lucide-react';
 
 interface Props {
   show: boolean;
@@ -6,9 +7,11 @@ interface Props {
   sfxEnabled: boolean;
   onSfxToggle: () => void;
   onClose: () => void;
+  onReboot?: () => void;
+  onQuit?: () => void;
 }
 
-export default function SettingsModal({ show, lang, sfxEnabled, onSfxToggle, onClose }: Props) {
+export default function SettingsModal({ show, lang, sfxEnabled, onSfxToggle, onClose, onReboot, onQuit }: Props) {
   const [shouldRender, setShouldRender] = useState(show);
 
   useEffect(() => {
@@ -29,7 +32,7 @@ export default function SettingsModal({ show, lang, sfxEnabled, onSfxToggle, onC
       }`}
     >
       <div 
-        className={`w-80 bg-black border border-[#14fac8]/30 backdrop-blur-xl p-6 rounded-lg shadow-2xl flex flex-col gap-6 transition-transform duration-300 ${
+        className={`w-full max-w-[320px] mx-4 bg-black border border-[#14fac8]/30 backdrop-blur-xl p-6 rounded-lg shadow-2xl flex flex-col gap-6 transition-transform duration-300 ${
           show ? 'scale-100' : 'scale-90'
         }`}
       >
@@ -37,7 +40,7 @@ export default function SettingsModal({ show, lang, sfxEnabled, onSfxToggle, onC
           <h3 className="font-mono text-gray-400 tracking-widest uppercase text-xs font-bold">
             {lang === 'tr' ? "AYARLAR" : "SETTINGS"}
           </h3>
-          <span className="material-symbols-outlined text-gray-400/40 text-sm">settings</span>
+          <Settings className="w-4 h-4 text-gray-400/40" />
         </div>
         <div className="space-y-6">
           <div className="flex items-center justify-between opacity-50 cursor-not-allowed">
@@ -61,6 +64,34 @@ export default function SettingsModal({ show, lang, sfxEnabled, onSfxToggle, onC
               />
               <span className="slider rounded-full"></span>
             </label>
+          </div>
+
+          {/* Mobile actions (Visible only on mobile/tablet) */}
+          <div className="flex md:hidden flex-col gap-2 pt-4 border-t border-white/10">
+            {onReboot && (
+              <button
+                onClick={() => {
+                  onReboot();
+                  onClose();
+                }}
+                className="w-full py-2 bg-[#14fac8]/10 border border-[#14fac8]/40 text-[#14fac8] font-mono text-[10px] font-bold hover:bg-[#14fac8] hover:text-black transition-all flex items-center justify-center gap-1.5 uppercase"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span>{lang === 'tr' ? 'Sıfırla' : 'Reset'}</span>
+              </button>
+            )}
+            {onQuit && (
+              <button
+                onClick={() => {
+                  onQuit();
+                  onClose();
+                }}
+                className="w-full py-2 bg-red-950/20 border border-red-500 text-red-500 font-mono text-[10px] font-bold hover:bg-red-500 hover:text-white transition-all flex items-center justify-center gap-1.5 uppercase"
+              >
+                <LogOut className="w-3 h-3" />
+                <span>{lang === 'tr' ? 'Oyunu Bitir' : 'End Game'}</span>
+              </button>
+            )}
           </div>
         </div>
         <button 

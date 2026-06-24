@@ -54,10 +54,10 @@ export default function HeartLossOverlay({ show, currentHearts, errorReason, onC
       if (isRightmost) {
         // Special breaking rightmost heart container
         hearts.push(
-          <div key={`heart-breaking-${animationKey}`} className="relative w-28 h-28 md:w-32 md:h-32 flex items-center justify-center">
+          <div key={`heart-breaking-${animationKey}`} className="relative w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 flex items-center justify-center">
             {animationStage === 'shake' && (
               <div className="animate-heart-shake flex items-center justify-center">
-                <Heart size={100} className="text-red-500 fill-red-500 select-none" />
+                <Heart className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 text-red-500 fill-red-500 select-none" />
               </div>
             )}
             {animationStage === 'break' && (
@@ -67,27 +67,27 @@ export default function HeartLossOverlay({ show, currentHearts, errorReason, onC
                   className="absolute animate-heart-break-left select-none"
                   style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
                 >
-                  <Heart size={100} className="text-red-500 fill-red-500" />
+                  <Heart className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 text-red-500 fill-red-500" />
                 </div>
                 {/* Right Half Heart */}
                 <div 
                   className="absolute animate-heart-break-right select-none"
                   style={{ clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)' }}
                 >
-                  <Heart size={100} className="text-red-500 fill-red-500" />
+                  <Heart className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 text-red-500 fill-red-500" />
                 </div>
               </div>
             )}
             {animationStage === 'done' && (
-              <Heart size={100} className="text-zinc-600 opacity-0 select-none" />
+              <Heart className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 text-zinc-600 opacity-0 select-none" />
             )}
           </div>
         );
       } else {
         // Normal red heart
         hearts.push(
-          <div key={`heart-normal-${i}`} className="w-28 h-28 md:w-32 md:h-32 flex items-center justify-center">
-            <Heart size={100} className="text-red-500 fill-red-500 select-none" />
+          <div key={`heart-normal-${i}`} className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 flex items-center justify-center">
+            <Heart className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 text-red-500 fill-red-500 select-none" />
           </div>
         );
       }
@@ -107,7 +107,7 @@ export default function HeartLossOverlay({ show, currentHearts, errorReason, onC
         style={{ transform: show ? 'scale(1)' : 'scale(0.5)' }}
       >
         {/* Row of hearts */}
-        <div id="breaking-hearts-row" className="flex gap-8 md:gap-12 mb-12">
+        <div id="breaking-hearts-row" className="flex gap-4 sm:gap-8 md:gap-12 mb-12">
           {renderHearts()}
         </div>
         

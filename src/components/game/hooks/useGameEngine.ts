@@ -227,8 +227,14 @@ export function useGameEngine() {
   }, []);
 
   // Alarm Selection & Validation
-  const selectAlarm = useCallback((id: string) => {
+  const selectAlarm = useCallback((id: string | null) => {
     if (isGameOver || showCMDModal || showHeartAnim) return;
+
+    if (id === null) {
+      setSelectedAlarmId(null);
+      setAddedSteps([]);
+      return;
+    }
 
     const targetAlarm = activeAlarms.find(a => a.id === id);
     if (!targetAlarm) return;

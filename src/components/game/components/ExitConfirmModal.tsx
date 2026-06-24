@@ -29,7 +29,7 @@ export default function ExitConfirmModal({ show, lang, onConfirm, onCancel }: Pr
       }`}
     >
       <div 
-        className={`w-96 bg-zinc-900 border border-white/10 p-8 flex flex-col items-center text-center shadow-2xl transition-transform duration-300 ${
+        className={`w-full max-w-[360px] mx-4 bg-zinc-900 border border-white/10 p-6 md:p-8 flex flex-col items-center text-center shadow-2xl transition-transform duration-300 ${
           show ? 'scale-100' : 'scale-95'
         }`}
       >
