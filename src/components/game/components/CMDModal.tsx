@@ -39,6 +39,11 @@ export default function CMDModal({
       setTypingIndex(0);
       setCurrentCommandText('');
       setPhase('typing');
+    } else {
+      setStepIndex(0);
+      setTypingIndex(0);
+      setCurrentCommandText('');
+      setPhase('idle');
     }
   }, [show]);
 
