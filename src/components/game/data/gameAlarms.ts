@@ -88,10 +88,10 @@ export const ALARM_DB: AlarmData[] = [
     priority: 'P2',
     title: { en: 'High CPU on Web Server', tr: 'Web Sunucusunda Yüksek CPU' },
     description: { en: 'Web server CPU usage exceeded 95% for 5 minutes.', tr: 'Web sunucusu CPU kullanımı 5 dakikadır %95 üzeri.' },
-    correctOrder: ['step_top', 'step_kill', 'step_monitor'],
+    correctOrder: ['step_top', 'step_restart_high_cpu', 'step_monitor'],
     steps: [
       { id: 'step_monitor', text: { en: 'Monitor load for 5 minutes', tr: 'Yükü 5 dakika boyunca izle' } },
-      { id: 'step_kill', text: { en: 'Kill zombie/stuck processes', tr: 'Askıda kalan (zombie) işlemleri sonlandır' } },
+      { id: 'step_restart_high_cpu', text: { en: 'Restart the service causing high CPU usage', tr: 'Yüksek CPU kullanımına neden olan servisi yeniden başlat' } },
       { id: 'step_top', text: { en: 'Run top/htop to identify process', tr: 'İşlemi tespit etmek için top/htop çalıştır' } },
     ]
   },
@@ -189,9 +189,9 @@ export const ALARM_DB: AlarmData[] = [
     priority: 'P3',
     title: { en: 'NTP Sync Lost', tr: 'NTP Senkronizasyon Kaybı' },
     description: { en: 'Server clock drift exceeded 500ms.', tr: 'Sunucu saat sapması 500ms sınırını aştı.' },
-    correctOrder: ['step_ntpq', 'step_ntp_restart', 'step_hwclock'],
+    correctOrder: ['step_ntpq', 'step_ntp_restart', 'step_clock_sync_check'],
     steps: [
-      { id: 'step_hwclock', text: { en: 'Sync hardware clock to system', tr: 'Donanım saatini sistem saatiyle eşitle' } },
+      { id: 'step_clock_sync_check', text: { en: 'Verify system clock synchronization status (chronyc tracking / ntpstat)', tr: 'Sistem saat senkronizasyon durumunu doğrula (chronyc tracking / ntpstat)' } },
       { id: 'step_ntp_restart', text: { en: 'Restart NTP/Chrony service', tr: 'NTP/Chrony servisini yeniden başlat' } },
       { id: 'step_ntpq', text: { en: 'Run ntpq -p to view peers', tr: 'NTP eşlerini görmek için ntpq -p çalıştır' } },
     ]

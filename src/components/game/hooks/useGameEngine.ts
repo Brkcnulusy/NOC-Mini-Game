@@ -17,7 +17,7 @@ export function useGameEngine() {
   // Game Progress States
   const [gameState, setGameState] = useState<GameState>('landing');
   const [level, setLevel] = useState<number>(1);
-  const [lives, setLives] = useState<number>(3);
+  const [lives, setLives] = useState<number>(4);
   const [score, setScore] = useState<number>(0);
   const [resolvedCount, setResolvedCount] = useState<number>(0);
 
@@ -82,10 +82,10 @@ export function useGameEngine() {
       const selected = shuffled.slice(0, count);
 
       selected.forEach(alarm => {
-        let duration = 20; // Default P4
-        if (alarm.priority === 'P1') duration = 80;
-        else if (alarm.priority === 'P2') duration = 60;
-        else if (alarm.priority === 'P3') duration = 40;
+        let duration = 30; // Default P4
+        if (alarm.priority === 'P1') duration = 90;
+        else if (alarm.priority === 'P2') duration = 70;
+        else if (alarm.priority === 'P3') duration = 50;
 
         list.push({
           ...alarm,
@@ -202,7 +202,7 @@ export function useGameEngine() {
   const goToDashboard = useCallback(() => {
     setGameState('dashboard');
     setLevel(1);
-    setLives(3);
+    setLives(4);
     setScore(0);
     setResolvedCount(0);
     setIsGameOver(false);

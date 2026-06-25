@@ -113,10 +113,16 @@ export default function CMDModal({
         return 'disable_write_access --volume nas-share-3';
       case 'step_top':
         return 'htop --delay 1 --sort CPU';
-      case 'step_kill':
-        return 'kill -9 $(pgrep -f "stuck_worker")';
+      case 'step_restart_high_cpu':
+        return 'systemctl restart nginx.service';
       case 'step_monitor':
         return 'watch -n 5 "cat /proc/loadavg"';
+      case 'step_ntpq':
+        return 'ntpq -p';
+      case 'step_ntp_restart':
+        return 'systemctl restart chronyd.service';
+      case 'step_clock_sync_check':
+        return 'chronyc tracking';
       case 'step_vnc':
         return 'vncviewer 10.100.45.112:5901';
       case 'step_inform_dev':
@@ -166,6 +172,50 @@ export default function CMDModal({
           'Reading last 100 log entries...',
           '[22:15:02] ERROR: connection pool exhausted at PostgreSQL',
           '[22:15:10] FATAL: remaining connection slots are reserved'
+        ];
+      case 'step_top':
+        return [
+          '  PID USER      PRI  NI  VIRT   RES   SHR S CPU% MEM%   TIME+  Command',
+          ' 1942 web-user   20   0  1.2G  482M 32.1M R 98.4  5.9  4:12.84 stuck_worker.js',
+          ' 1901 root       20   0  245M 18.2M  8.4M S  0.5  0.2  0:04.12 systemd',
+          'Found process: stuck_worker.js (PID 1942) consuming 98.4% CPU.'
+        ];
+      case 'step_restart_high_cpu':
+        return [
+          'Stopping nginx.service...',
+          'Starting nginx.service...',
+          '● nginx.service - A high performance web server',
+          '   Active: active (running) since Wed 2026-06-24'
+        ];
+      case 'step_monitor':
+        return [
+          'Every 5.0s: cat /proc/loadavg',
+          'Load average: 0.22, 0.54, 0.81 (Decreasing)',
+          'CPU usage stabilized at 3.5%.'
+        ];
+      case 'step_ntpq':
+        return [
+          '     remote           refid      st t when poll reach   delay   offset  jitter',
+          '==============================================================================',
+          '*ntp1.noc.local   .GPS.            1 u   18   64  377    0.145  -542.12   0.092',
+          '+ntp2.noc.local   .GPS.            1 u   22   64  377    0.180  -541.89   0.104'
+        ];
+      case 'step_ntp_restart':
+        return [
+          'Stopping chronyd.service...',
+          'Starting chronyd.service...',
+          '● chronyd.service - NTP client/server',
+          '   Active: active (running) since Wed 2026-06-24'
+        ];
+      case 'step_clock_sync_check':
+        return [
+          'Reference ID    : 0A0A040F (ntp1.noc.local)',
+          'Stratum         : 2',
+          'Ref time (UTC)  : Wed Jun 24 16:28:00 2026',
+          'System time     : 0.000000008 seconds slow of NTP time',
+          'Last offset     : -0.000000002 seconds',
+          'RMS offset      : 0.000000095 seconds',
+          'Leap status     : Normal'
         ];
       default:
         return [

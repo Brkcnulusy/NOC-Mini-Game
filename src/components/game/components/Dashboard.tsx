@@ -79,7 +79,7 @@ export default function Dashboard({ onBack, engine }: Props) {
 
             {/* Heart/Lives indicator */}
             <div className="flex gap-1">
-              {[0, 1, 2].map(idx => {
+              {[0, 1, 2, 3].map(idx => {
                 const isFilled = idx < engine.lives;
                 return (
                   <Heart
